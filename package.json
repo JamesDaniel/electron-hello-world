@@ -4,18 +4,28 @@
   "description": "My Electron app",
   "main": "index.js",
   "scripts": {
-    "init": "sudo apt-get -y install build-essential clang libdbus-1-dev libgtk-3-dev libnotify-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison openjdk-8-jre && sudo apt install rpm",
+    "mono-setup": "echo \"https://www.mono-project.com/download/stable/\" && echo \"installing mono for ubuntu 20\" && sudo apt install gnupg ca-certificates && sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && echo \"deb https://download.mono-project.com/repo/ubuntu stable-focal main\" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && sudo apt update",
+    "init": "npm run mono-setup && sudo apt-get -y install mono-devel wine build-essential clang libdbus-1-dev libgtk-3-dev libnotify-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison openjdk-8-jre && sudo apt install rpm",
     "start": "electron-forge start",
-    "build": "electron-forge make"
+    "package-windows": "electron-packager . app --overwrite  --platform win32 --arch x64 --out out/",
+    "make-windows": "electron-installer-windows --src out/app-win32-x64/ --dest out/make/",
+    "build": "electron-forge make",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "pack-win": "build --dir --win",
+    "dist-win": "build --win"
   },
   "license": "ISC",
+  "author": "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "^11.2.3"
+    "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
+    "electron-installer-windows": "^3.0.0"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
@@ -44,6 +54,14 @@
           "name": "@electron-forge/maker-rpm",
           "config": {}
         }
+      ]
+    }
+  },
+  "build": {
+    "appId": "com.aaronlenoir.gnucash-reporter",
+    "win": {
+      "target": [
+        "zip"
       ]
     }
   }
