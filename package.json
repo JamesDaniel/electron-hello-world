@@ -4,27 +4,18 @@
   "description": "My Electron app",
   "main": "index.js",
   "scripts": {
+    "init": "sudo apt-get -y install build-essential clang libdbus-1-dev libgtk-3-dev libnotify-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison openjdk-8-jre && sudo apt install rpm",
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "build": "electron-forge make"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JamesDaniel/electron-hello-world.git"
-  },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JamesDaniel/electron-hello-world/issues"
-  },
-  "homepage": "https://github.com/JamesDaniel/electron-hello-world#readme",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "^11.1.0"
+    "electron": "^11.2.3"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
